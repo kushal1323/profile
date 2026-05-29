@@ -1,0 +1,813 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kushal Shetty — Developer & AIML Enthusiast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f9f9f6;
+    --bg2: #ffffff;
+    --text: #111110;
+    --muted: #6e6e6a;
+    --accent: #0066cc;
+    --line: #e5e5e0;
+    --tag-bg: #111110;
+    --tag-text: #f9f9f6;
+  }
+
+  html { 
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.625;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(249, 249, 246, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--line);
+    padding: 0 4rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .nav-logo:hover { opacity: 0.7; }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    padding-top: 64px;
+  }
+  .hero-left {
+    padding: 6rem 4rem 6rem 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--line);
+  }
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.5rem, 6vw, 5.8rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 2rem;
+  }
+  .hero-name em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 440px;
+    margin-bottom: 3rem;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.8rem 1.75rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--text);
+    color: var(--bg);
+    border: 1px solid var(--text);
+  }
+  .btn-primary:hover { 
+    background: #2a2a28; 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--line);
+  }
+  .btn-ghost:hover { 
+    border-color: var(--text); 
+    transform: translateY(-2px);
+  }
+
+  .hero-right {
+    padding: 6rem 6rem 6rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .status-card {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 2.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+  }
+  .status-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .status-dot-live {
+    width: 6px; height: 6px;
+    background: #10b981;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 8px #10b981;
+  }
+  .status-text {
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.75;
+    color: var(--text);
+  }
+  .status-text strong { font-weight: 700; color: #000; }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .stat {
+    text-align: left;
+    padding: 1.75rem 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--bg2);
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.25rem;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+    font-weight: 500;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 8rem 6rem;
+    border-top: 1px solid var(--line);
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  /* SKILLS */
+  .skills-featured {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .skills-featured-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+    font-weight: 500;
+    white-space: nowrap;
+    padding-right: 1.5rem;
+    border-right: 1px solid var(--line);
+  }
+  .skills-featured-items {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .feat-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    padding: 0.4rem 1rem;
+    border-radius: 30px;
+    border: 1px solid var(--line);
+    background: var(--bg);
+  }
+  .feat-pill-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-group {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 2rem;
+    transition: border-color 0.2s ease;
+  }
+  .skill-group:hover {
+    border-color: var(--muted);
+  }
+  .skill-group-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+  .sg-icon {
+    width: 18px; height: 18px;
+    stroke: var(--muted);
+    fill: none;
+    flex-shrink: 0;
+  }
+  .skill-group-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text);
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .skill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-weight: 400;
+  }
+  .skill-tag.dark {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+  }
+  .skill-tag.mid {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid #b5b5b0;
+  }
+  .skill-tag.light {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--line);
+  }
+
+  .skills-legend {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .legend-dot.filled { background: var(--text); }
+  .legend-dot.outline-filled { background: transparent; border: 1px solid #b5b5b0; }
+  .legend-dot.outline { background: transparent; border: 1px solid var(--line); }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .about-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .detail-row {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .detail-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: var(--bg);
+  }
+  .detail-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--text);
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .detail-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .detail-value {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .contact-card {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 2.5rem 2rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: block;
+  }
+  .contact-card:hover {
+    border-color: var(--text);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.02);
+  }
+  .contact-card-icon {
+    margin-bottom: 1.5rem;
+  }
+  .contact-card-icon svg {
+    width: 26px; height: 26px;
+    stroke: var(--text); fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .contact-card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .contact-card-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    word-break: break-all;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 3rem 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .footer-links {
+    display: flex;
+    gap: 2.5rem;
+  }
+  .footer-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--text); }
+
+  /* ANIMATION */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* RESPONSIVE RENDERING */
+  @media (max-width: 1024px) {
+    nav { padding: 0 2rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 6rem 2rem 3rem 2rem; border-right: none; border-bottom: 1px solid var(--line); }
+    .hero-right { padding: 4rem 2rem; }
+    section { padding: 6rem 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { padding: 3rem 2rem; flex-direction: column; gap: 1.5rem; text-align: center; }
+  }
+
+  .cursor-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--text);
+    border-radius: 50%;
+    margin-left: 6px;
+    animation: blink 1.2s ease infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">ks.dev</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Portfolio — 2026</p>
+    <h1 class="hero-name">
+      Kushal<br>
+      <em>Shetty</em><span class="cursor-dot"></span>
+    </h1>
+    <p class="hero-desc">
+      Computer Engineering student passionate about full-stack architectures and Artificial Intelligence. Building custom web frontends and implementing core Machine Learning logic.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Get in touch
+      </a>
+      <a href="https://github.com/kushal1323" target="_blank" class="btn btn-ghost">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="status-card fade-up">
+      <p class="status-label"><span class="status-dot-live"></span> Current Status</p>
+      <p class="status-text">
+        <strong>2nd Year B.Tech Computer Engineering</strong><br>
+        Fr. Conceicao Rodrigues College of Engineering, Mumbai<br><br>
+        Actively exploring <strong>AI/ML algorithms</strong>, mathematical frameworks, and scalable modern web applications. Open to backend & ML-driven collaborations.
+      </p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat fade-up">
+        <div class="stat-num">12+</div>
+        <div class="stat-lbl">Core Stack</div>
+      </div>
+      <div class="stat fade-up">
+        <div class="stat-num">SE</div>
+        <div class="stat-lbl">Division B</div>
+      </div>
+      <div class="stat fade-up">
+        <div class="stat-num">∞</div>
+        <div class="stat-lbl">Curiosity</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="skills">
+  <div class="section-header fade-up">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Skills & Technologies</h2>
+  </div>
+
+  <div class="skills-featured fade-up">
+    <div class="skills-featured-label">Core Focus</div>
+    <div class="skills-featured-items">
+      <div class="feat-pill"><span class="feat-pill-dot" style="background:#3b82f6"></span>AI & ML</div>
+      <div class="feat-pill"><span class="feat-pill-dot" style="background:#3178c6"></span>Python</div>
+      <div class="feat-pill"><span class="feat-pill-dot" style="background:#f2c811"></span>JavaScript</div>
+      <div class="feat-pill"><span class="feat-pill-dot" style="background:#e34f26"></span>HTML5 / CSS3</div>
+      <div class="feat-pill"><span class="feat-pill-dot" style="background:#0066cc"></span>SQL</div>
+    </div>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-group fade-up">
+      <div class="skill-group-header">
+        <svg class="sg-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <p class="skill-group-title">Languages</p>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag dark">Python</span>
+        <span class="skill-tag dark">JavaScript</span>
+        <span class="skill-tag dark">C</span>
+        <span class="skill-tag dark">C++</span>
+        <span class="skill-tag dark">HTML</span>
+        <span class="skill-tag dark">CSS</span>
+        <span class="skill-tag mid">TypeScript</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <div class="skill-group-header">
+        <svg class="sg-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <p class="skill-group-title">Frontend Frameworks</p>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag mid">React</span>
+        <span class="skill-tag mid">Tailwind CSS</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <div class="skill-group-header">
+        <svg class="sg-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        <p class="skill-group-title">AI / ML & Analytics</p>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag dark">Pandas</span>
+        <span class="skill-tag dark">NumPy</span>
+        <span class="skill-tag dark">Power BI</span>
+        <span class="skill-tag light">Machine Learning</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <div class="skill-group-header">
+        <svg class="sg-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        <p class="skill-group-title">Backend & Databases</p>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag dark">SQL</span>
+        <span class="skill-tag dark">MySQL</span>
+        <span class="skill-tag dark">PostgreSQL</span>
+        <span class="skill-tag mid">MongoDB</span>
+        <span class="skill-tag light">Node.js</span>
+        <span class="skill-tag light">Express</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="skills-legend fade-up">
+    <span class="legend-item"><span class="legend-dot filled"></span> Proficient</span>
+    <span class="legend-item"><span class="legend-dot outline-filled"></span> Familiar</span>
+    <span class="legend-item"><span class="legend-dot outline"></span> Learning</span>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-header fade-up">
+    <span class="section-num">02</span>
+    <h2 class="section-title">About Me</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade-up">
+      <p>
+        Hi, I'm <strong>Kushal Shetty</strong> — a second-year Computer Engineering student at Fr. Conceicao Rodrigues College of Engineering, Mumbai. My path is driven by an intense focus on mastering <strong>Artificial Intelligence and Machine Learning</strong>.
+      </p>
+      <p>
+        I have established a solid coding foundation, working proficiently across <strong>JavaScript, HTML, CSS, C, C++, and Python</strong>. On the data front, I am highly proficient with <strong>Pandas, NumPy, and Power BI</strong> for advanced analysis and visualization, while actively scaling my knowledge into modern <strong>Machine Learning models</strong>.
+      </p>
+      <p>
+        When it comes to building user interfaces and storage systems, I work comfortably with <strong>React, TypeScript, Tailwind CSS, and MongoDB</strong>, while currently learning <strong>Node.js and Express</strong> to connect my applications to intelligent computational backends.
+      </p>
+    </div>
+    <div class="about-details fade-up">
+      <div class="detail-row">
+        <div class="detail-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div>
+          <p class="detail-label">Education</p>
+          <p class="detail-value">B.Tech Computer Engineering<br>Fr. CRCE, Mumbai</p>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div>
+          <p class="detail-label">Current Timeline</p>
+          <p class="detail-value">Second Year (SE - Comps B)</p>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div>
+          <p class="detail-label">Interests</p>
+          <p class="detail-value">AI / ML Frameworks<br>Intelligent Web Interfaces</p>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <p class="detail-label">Location</p>
+          <p class="detail-value">Mumbai, Maharashtra, India</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-header fade-up">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Get In Touch</h2>
+  </div>
+  <div class="contact-grid">
+    <a href="mailto:Kushalshetty372@gmail.com" class="contact-card fade-up">
+      <div class="contact-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <p class="contact-card-label">Email</p>
+      <p class="contact-card-value">Kushalshetty372@gmail.com</p>
+    </a>
+    <a href="https://www.linkedin.com/in/kushal-shetty-517263334/" target="_blank" class="contact-card fade-up">
+      <div class="contact-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </div>
+      <p class="contact-card-label">LinkedIn</p>
+      <p class="contact-card-value">kushal-shetty-517263334</p>
+    </a>
+    <a href="https://github.com/kushal1323" target="_blank" class="contact-card fade-up">
+      <div class="contact-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </div>
+      <p class="contact-card-label">GitHub</p>
+      <p class="contact-card-value">github.com/kushal1323</p>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-text">© 2026 Kushal Shetty — All rights reserved</p>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/kushal-shetty-517263334/" target="_blank">LinkedIn</a>
+    <a href="https://github.com/kushal1323" target="_blank">GitHub</a>
+    <a href="mailto:Kushalshetty372@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 50);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach((el, i) => {
+    el.style.transitionDelay = (i % 3) * 60 + 'ms';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
+
